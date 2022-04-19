@@ -2,13 +2,15 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import veeValidatePlugin from "@/plugins/validation";
 
 import "./assets/tailwind.css";
 import "./assets/css/main.css";
 
-const app = createApp(App);
+const application = createApp(App);
 
-app.use(store);
-app.use(router);
+application.use(store);
+application.use(router);
+application.use(veeValidatePlugin);
 
-app.mount("#app");
+application.mount("#app");

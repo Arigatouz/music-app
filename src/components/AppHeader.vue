@@ -9,7 +9,7 @@
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
           <li>
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
+            <a class="px-2 text-white" href="#" @click.prevent="showModal"
               >Login / Register</a
             >
           </li>
@@ -27,7 +27,12 @@ import { mapMutations } from "vuex";
 export default {
   name: "AppHeder",
   methods: {
-    ...mapMutations(["toggleAuthModal"]),
+    // showModal() {
+    //   this.$store.commit("toggleAuthModal");
+    // },
+    ...mapMutations({
+      showModal: "toggleAuthModal",
+    }),
   },
 };
 </script>
