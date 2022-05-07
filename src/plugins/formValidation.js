@@ -27,6 +27,8 @@ export default {
 
     defineRule("required", required);
     defineRule("tos", required);
+    defineRule("login_password", required);
+    defineRule("login_email", required);
     defineRule("min", min);
     defineRule("max", max);
     defineRule("email", email);
@@ -46,10 +48,12 @@ export default {
           min: `The field ${ctx.field} is too short`,
           max: `The field ${ctx.field} is too long `,
           email: `The field ${ctx.field} need to have valid email`,
+          login_email: `Please enter your email address!`,
           alpha_spaces: `The field ${ctx.field} must contain letters and spaces only!`,
           max_value: `The field ${ctx.field} is too heigh`,
           min_value: `The field ${ctx.field} is too low`,
           password_mismatch: `The password you entered don't match`,
+          login_password: "Please Enter your Password",
           excluded: `You are not allowed to use this value for the field ${ctx.field}.`,
           excluded_country:
             "Due to restrictions, we do not accept users from this location.",

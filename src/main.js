@@ -6,6 +6,7 @@ import veeValidatePlugin from "@/plugins/formValidation";
 
 import "./assets/tailwind.css";
 import "./assets/css/main.css";
+import "./include/firebase.js";
 
 const application = createApp(App);
 

@@ -1,4 +1,5 @@
 <script>
+import { auth } from "@/include/firebase.js";
 export default {
   data() {
     return {
@@ -22,14 +23,29 @@ export default {
   },
   methods: {
     // register
-    register(values) {
+    async register(values) {
       this.reg_in_submission = true;
       this.reg_alert_variant = "bg-blue-600";
       this.reg_show_alert = true;
       this.reg_alert_message = "Please wait! your account is being created!";
-      this.reg_alert_variant = "bg-blue-600";
+      // firebase adding user
+      let userCred = null;
+      try {
+        userCred = await auth.createUserWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+      } catch (error) {
+        this.reg_in_submission = false;
+        this.reg_alert_variant = "bg-red-600";
+        this.reg_alert_message =
+          "something went wrong please try again later !";
+        return;
+      }
+
+      this.reg_alert_variant = "bg-green-600";
       this.reg_alert_message = "Success. you account has been created!";
-      console.log(values);
+      console.log(userCred);
     },
   },
 };
