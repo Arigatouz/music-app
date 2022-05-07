@@ -16,7 +16,6 @@ import {
   min_value,
   confirmed,
   is_not,
-  one_of,
 } from "@vee-validate/rules";
 
 export default {
@@ -29,6 +28,7 @@ export default {
     defineRule("tos", required);
     defineRule("login_password", required);
     defineRule("login_email", required);
+    defineRule("music_type", required);
     defineRule("min", min);
     defineRule("max", max);
     defineRule("email", email);
@@ -38,7 +38,6 @@ export default {
     defineRule("password_mismatch", confirmed);
     defineRule("excluded", is_not);
     defineRule("excluded_country", is_not);
-    defineRule("special_character", one_of);
 
     configure({
       bails: false,
@@ -58,8 +57,7 @@ export default {
           excluded_country:
             "Due to restrictions, we do not accept users from this location.",
           tos: `you must select the terms of service `,
-          special_character:
-            "Password needs to have at least one special Character",
+          music_type: "Please Select One music Type of the categories Below!",
         };
         const message = messages[ctx.rule.name]
           ? messages[ctx.rule.name]
