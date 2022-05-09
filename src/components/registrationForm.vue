@@ -1,6 +1,4 @@
 <script>
-import { auth, Users } from "@/include/firebase.js";
-
 // showing Error box function
 const formAlertErrorBox = (that, error) => {
   that.reg_in_submission = false;
@@ -18,6 +16,7 @@ const onSubmission = (that) => {
 };
 
 export default {
+  name: "registrationForm",
   data() {
     return {
       userData: {
@@ -45,13 +44,8 @@ export default {
       // showing request in process box function
       onSubmission(this);
 
-      // firebase adding user
-      let userCred = null;
       try {
-        userCred = await auth.createUserWithEmailAndPassword(
-          values.email,
-          values.password
-        );
+        await this.$store.dispatch("register", values);
       } catch (error) {
         // showing Error box function
         formAlertErrorBox(this, error.message);
@@ -60,28 +54,8 @@ export default {
         return;
       }
 
-      try {
-        await Users.add({
-          name: values.name,
-          email: values.email,
-          age: values.age,
-          password: values.password,
-          country: values.country,
-          favorite_music: values.favorite_music,
-        });
-      } catch (error) {
-        // showing Error box function
-        formAlertErrorBox(this);
-        console.log("registration From Error :", error);
-        console.log("registration From Error :", error.message);
-        return;
-      }
-      // toggling the user authentication
-      this.$store.commit("toggleAuthentication");
-
       this.reg_alert_variant = "bg-green-600";
       this.reg_alert_message = "Success. you account has been created!";
-      console.log("registration From", userCred);
     },
   },
 };

@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { auth, Users } from "@/include/firebase.js";
 
 export default createStore({
   state: {
@@ -22,7 +23,33 @@ export default createStore({
     toggleAuthentication: (state) => (state.userLoggedIn = !state.userLoggedIn),
   },
 
-  actions: {},
+  actions: {
+    async register({ commit }, payload) {
+      // firebase adding user
+      const userCred = await auth.createUserWithEmailAndPassword(
+        payload.email,
+        payload.password
+      );
+
+      // adding user data to the same mail which register up ⬆️⬆️
+      await Users.doc(userCred.user.uid).set({
+        name: payload.name,
+        email: payload.email,
+        age: payload.age,
+        password: payload.password,
+        country: payload.country,
+        favorite_music: payload.favorite_music,
+      });
+      // toggling the user authentication
+      commit("toggleAuthentication");
+    },
+    init_login({ commit }) {
+      const user = auth.currentUser;
+      if (user) {
+        commit("toggleAuthentication");
+      }
+    },
+  },
 
   modules: {},
 });
