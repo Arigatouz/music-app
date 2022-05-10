@@ -8,19 +8,23 @@
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
-          <li>
-            <a
-              class="px-2 text-white"
-              href="#"
-              @click.prevent="showModal"
-              v-if="!userLoggedIn"
-              >Login / Register</a
-            >
-            <a class="px-2 text-white" href="#" v-else>Logout</a>
-          </li>
-          <li>
-            <a class="px-2 text-white" href="#">Manage</a>
-          </li>
+          <template v-if="!userLoggedIn">
+            <li>
+              <a class="px-2 text-white" href="#" @click.prevent="showModal"
+                >Login / Register</a
+              >
+            </li>
+          </template>
+          <template v-else>
+            <li>
+              <a class="px-2 text-white" href="#">Manage</a>
+            </li>
+            <li>
+              <a class="px-2 text-white" href="#" @click.prevent="LogOut"
+                >Logout</a
+              >
+            </li>
+          </template>
         </ul>
       </div>
     </nav>
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapActions } from "vuex";
 export default {
   name: "AppHeder",
   computed: {
@@ -41,6 +45,7 @@ export default {
     ...mapMutations({
       showModal: "toggleAuthModal",
     }),
+    ...mapActions(["LogOut"]),
   },
 };
 </script>

@@ -14,15 +14,22 @@ export default {
     };
   },
   methods: {
-    logIn(values) {
+    async logIn(values) {
       this.login_in_submission = true;
       this.login_show_alert = true;
-      this.login_alert_message = "Please wait! your account is being created!";
+      this.login_alert_message =
+        "Please wait! while logging in to your account!";
       this.login_alert_variant = "bg-blue-600";
-
-      this.login_alert_message = "account created successfully!";
-      this.login_alert_variant = "bg-green-600";
-      console.log(values);
+      // dispatching a login
+      try {
+        await this.$store.dispatch("logIn", values);
+      } catch (error) {
+        this.login_in_submission = false;
+        this.login_alert_message = error.message || "information are invalid";
+        this.login_alert_variant = "bg-red-600";
+        return;
+      }
+      window.location.reload();
     },
   },
 };

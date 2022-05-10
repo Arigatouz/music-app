@@ -40,6 +40,9 @@ export default createStore({
         country: payload.country,
         favorite_music: payload.favorite_music,
       });
+      await userCred.user.updateProfile({
+        displayName: payload.name,
+      });
       // toggling the user authentication
       commit("toggleAuthentication");
     },
@@ -48,6 +51,15 @@ export default createStore({
       if (user) {
         commit("toggleAuthentication");
       }
+    },
+    async logIn({ commit }, payload) {
+      await auth.signInWithEmailAndPassword(payload.email, payload.password);
+      commit("toggleAuthentication");
+    },
+    async LogOut({ commit }) {
+      await auth.signOut();
+      commit("toggleAuthentication");
+      window.location.reload();
     },
   },
 
