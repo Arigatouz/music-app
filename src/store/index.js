@@ -40,6 +40,7 @@ export default createStore({
         country: payload.country,
         favorite_music: payload.favorite_music,
       });
+
       await userCred.user.updateProfile({
         displayName: payload.name,
       });
