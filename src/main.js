@@ -11,6 +11,7 @@ import "./assets/css/main.css";
 import { auth } from "./include/firebase.js";
 
 //! remember to initialize firebase before loading the vue app or you wont be able to track if the user still logged in or not
+
 let application;
 auth.onAuthStateChanged(() => {
   if (!application) {
